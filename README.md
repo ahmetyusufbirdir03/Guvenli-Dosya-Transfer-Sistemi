@@ -1,1 +1,1 @@
-# G-venli-Dosya-Transfer-Sistemi
+# Güvenli-Dosya-Transfer-Sistemi
