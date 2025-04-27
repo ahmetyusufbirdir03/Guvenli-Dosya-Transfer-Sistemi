@@ -43,7 +43,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 
             print("[+] Kimlik doğrulama başarılı.")
 
-                # 🔹 2. Dosya adını al
+            # 🔹 2. Dosya adını al
             file_name_len = struct.unpack('!I', recv_exact(conn, 4))[0]
             file_name = recv_exact(conn, file_name_len).decode()
             print(f"[+] Alınan dosya adı: {file_name}")
