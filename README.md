@@ -98,24 +98,6 @@ python client.py
 - Optionally set a number of packets to corrupt
 - Click **Start Transfer**
 
----
-
-## 📁 Folder Structure
-
-```
-.
-├── client.py
-├── server.py
-├── Tools/
-│   └── iperf3.exe
-├── public_key.pem
-├── private_key.pem
-├── RecievedFiles/
-│   └── [Received files saved here]
-```
-
----
-
 ## 🔐 Security Notes
 
 - AES-128 with CBC mode is used for confidentiality.
