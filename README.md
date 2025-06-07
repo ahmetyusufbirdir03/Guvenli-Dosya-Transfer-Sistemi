@@ -84,7 +84,7 @@ python server.py
 - Listens on `0.0.0.0:5001` (TCP) and `0.0.0.0:5002` (UDP)
 - Automatically starts `iperf3` server on both ports
 - Requires `private_key.pem` in the root directory
--Note: You can run server.py on a different machine within the same local network. Make sure the server's IP address is reachable from the client machine and that ports 5001 and 5002 are open in the server's firewall.
+- Note: You can run server.py on a different machine within the same local network. Make sure the server's IP address is reachable from the client machine and that ports 5001 and 5002 are open in the server's firewall.
 
 ### 🧑‍💻 Run the Client
 
