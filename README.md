@@ -19,17 +19,38 @@ A GUI-based secure file transfer application built in Python, supporting **TCP**
 
 ---
 
-## 🧠 Architecture
-[ Client GUI ]
-│
-├── TCP Transfer ──────────────► [ Server TCP ]
-│ └── Save file if hash verified
-│
-├── UDP Transfer ──────────────► [ Server UDP ]
-│ └─ Adaptive retry + ACK/NACK + packet integrity check
-│
-└── HYBRID Mode ─ Ping-based decision → TCP or UDP
+## 🧠 System Architecture Overview
 
+```
+┌─────────────┐           ┌───────────────────────┐
+│   CLIENT    │           │        SERVER         │
+│  (GUI App)  │           │   (TCP/UDP Listener)  │
+└────┬────────┘           └──────────┬────────────┘
+     │                               │
+     │   TCP (Port 5001)            │
+     ├─────────────────────────────►│
+     │   - Auth via Token           │
+     │   - Encrypted AES Key        │
+     │   - Chunked File Transfer    │
+     │   - Hash Integrity Check     │
+     │                              ▼
+     │                        File Saved (if valid)
+     │
+     │
+     │   UDP (Port 5002)            │
+     ├─────────────────────────────►│
+     │   - FILENAME / KEY init      │
+     │   - CHUNK:<seq><hash><data>  │
+     │   - ACK / NACK handshake     │
+     │   - Adaptive Delay Control   │
+     │                              ▼
+     │                        Reassembled & Saved
+     │
+     │
+     │   HYBRID MODE                │
+     └────── Ping Test ───────────►│
+             (selects TCP or UDP based on latency)
+```
 
 ---
 
@@ -48,4 +69,90 @@ To install dependencies:
 
 ```bash
 pip install pycryptodome cryptography
+```
 
+---
+
+## 🔧 Usage
+
+### 🖥️ Start the Server
+
+```bash
+python server.py
+```
+
+- Listens on `0.0.0.0:5001` (TCP) and `0.0.0.0:5002` (UDP)
+- Automatically starts `iperf3` server on both ports
+- Requires `private_key.pem` in the root directory
+
+### 🧑‍💻 Run the Client
+
+```bash
+python client.py
+```
+
+- Select a file to send
+- Enter the server IP address
+- Choose the protocol (TCP, UDP, HYBRID)
+- Optionally set a number of packets to corrupt
+- Click **Start Transfer**
+
+---
+
+## 📁 Folder Structure
+
+```
+.
+├── client.py
+├── server.py
+├── Tools/
+│   └── iperf3.exe
+├── public_key.pem
+├── private_key.pem
+├── RecievedFiles/
+│   └── [Received files saved here]
+```
+
+---
+
+## 🔐 Security Notes
+
+- AES-128 with CBC mode is used for confidentiality.
+- Each file chunk is hashed (SHA-256) and verified on the receiver side.
+- The AES key is RSA-encrypted before being transmitted.
+- Authentication is handled via a static token (can be improved to session-based).
+
+---
+
+## 📈 Performance Monitoring
+
+The client automatically runs `iperf3` tests on both TCP and UDP ports before transfer and logs the results in real-time.
+
+---
+
+## 🧪 Testing and Development
+
+- Simulate packet loss by setting a corruption count (GUI Spinbox)
+- Monitor adaptive delay behavior in UDP mode based on RTT
+- Manually test with various network conditions or VPN
+
+---
+
+## 📌 TODO / Improvements
+
+- 🔒 Switch from static token to JWT or session-based authentication
+- 📡 NAT traversal and peer-to-peer support
+- 🧾 Progress bar in GUI
+- 🗂️ Support for multiple concurrent transfers and clients
+
+---
+
+## 📃 License
+
+MIT License © 2025
+
+---
+
+## 👨‍💻 Authors
+
+Developed by [Your Name / Team Name] as part of the **Advanced Secure File Transfer System** project.
