@@ -111,14 +111,6 @@ python client.py
 
 The client automatically runs `iperf3` tests on both TCP and UDP ports before transfer and logs the results in real-time.
 
----
-
-## 🧪 Testing and Development
-
-- Simulate packet loss by setting a corruption count (GUI Spinbox)
-- Monitor adaptive delay behavior in UDP mode based on RTT
-- Manually test with various network conditions or VPN
----
 
 ## 📃 License
 
