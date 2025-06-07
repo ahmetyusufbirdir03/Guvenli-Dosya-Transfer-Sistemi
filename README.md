@@ -118,24 +118,9 @@ The client automatically runs `iperf3` tests on both TCP and UDP ports before tr
 - Simulate packet loss by setting a corruption count (GUI Spinbox)
 - Monitor adaptive delay behavior in UDP mode based on RTT
 - Manually test with various network conditions or VPN
-
----
-
-## 📌 TODO / Improvements
-
-- 🔒 Switch from static token to JWT or session-based authentication
-- 📡 NAT traversal and peer-to-peer support
-- 🧾 Progress bar in GUI
-- 🗂️ Support for multiple concurrent transfers and clients
-
 ---
 
 ## 📃 License
 
 MIT License © 2025
 
----
-
-## 👨‍💻 Authors
-
-Developed by [Your Name / Team Name] as part of the **Advanced Secure File Transfer System** project.
